@@ -1,7 +1,7 @@
 
-|python:S1192,"dDefine a constant instead of duplicating this literal 'Ğ¡Ñ‚Ğ¾Ğ¸Ğ¼Ğ¾ÑÑ‚ÑŒ Ğ°Ñ€ĞµĞ½Ğ´Ñ‹ ($)' 3 times.(—ÒÑ±
-gpython:S1192%"ODefine a constant instead of duplicating this literal 'Ğ§Ğ°ÑÑ‚Ğ¾Ñ‚Ğ°' 4 times.(¨‡¸
-Lpython:S6735"/Specify the "validate" parameter of this merge.(à‹†Äÿÿÿÿÿ
-Fpython:S1172B"/Remove the unused function parameter "df_film".(¬†ŒE
-Gpython:S6735D"/Specify the "validate" parameter of this merge.(ıãï
-ksecrets:S6698"SMake sure this PostgreSQL database password gets changed and removed from the code.(µ¸û5
+ƒpython:S1192-"dDefine a constant instead of duplicating this literal 'Ğ¡Ñ‚Ğ¾Ğ¸Ğ¼Ğ¾ÑÑ‚ÑŒ Ğ°Ñ€ĞµĞ½Ğ´Ñ‹ ($)' 3 times.(—ÒÑ±8éİì•É2
+npython:S1192&"ODefine a constant instead of duplicating this literal 'Ğ§Ğ°ÑÑ‚Ğ¾Ñ‚Ğ°' 4 times.(¨‡¸8éİì•É2
+Spython:S6735"/Specify the "validate" parameter of this merge.(à‹†Äÿÿÿÿÿ8éİì•É2
+Mpython:S1172C"/Remove the unused function parameter "df_film".(¬†ŒE8éİì•É2
+Npython:S6735E"/Specify the "validate" parameter of this merge.(ıãï8éİì•É2
+ksecrets:S6698"SMake sure this PostgreSQL database password gets changed and removed from the code.(µ¸û5

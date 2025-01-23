@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sqlalchemy import create_engine
+import psycopg2
 
 # Настроим стиль графиков
 sns.set(style="whitegrid")
@@ -114,7 +115,7 @@ def main():
     print(df_film.describe(), "\n")
 
     # Одномерный анализ
-    #one_dimensional_analysis(df_film)
+    one_dimensional_analysis(df_film)
 
     # Многомерный анализ
     multi_dimensional_analysis(df_film_category, df_film,df_category)
