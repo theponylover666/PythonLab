@@ -113,12 +113,8 @@ Q.idea/sonarlint/securityhotspotstore/9/0/909762385fc6eb20f922a91c6865741308b57f
 Q.idea/sonarlint/securityhotspotstore/e/d/ed9b4c71359182f2233b4959e9a6a6790663acc6,1\7\178467448841a655966c125cd2f135514a923fe6
 A
 Lab_2/counting.py,3\6\363085c637d6ac90236a6f238bab94e19e8c7461
-M
-Lab_2/Exploratory_analysis.py,d\0\d004a2b47fb05fc191f774f9df4ff72e89cc766f
 N
 Lab_2/categorical_variables.py,2\a\2a318ed566f312049b205e58f733b70691e86b89
-C
-Lab_2/hypothesis.py,0\d\0d81d922e64ac1e79f6b7184c667383a02e6c791
 E
 Lab_2/hypothesis_2.py,6\d\6dc54e98345bb62cbb69762ad689957962608598
 E

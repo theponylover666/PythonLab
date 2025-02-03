@@ -9,10 +9,20 @@ engine = create_engine("postgresql+psycopg2://mpi:135a1@povt-cluster.tstu.tver.r
 with engine.connect() as conn:
     df_film = pd.read_sql("SELECT * FROM film", conn)
 
-# Гипотеза 1: Средний rental_rate различается между фильмами разной длительности
+# Разделим фильмы на короткие и длинные
 median_length = df_film['length'].median()
 group_short = df_film[df_film['length'] < median_length]['rental_rate'].dropna()
 group_long = df_film[df_film['length'] >= median_length]['rental_rate'].dropna()
-t_stat, p_value = stats.ttest_ind(group_short, group_long)
-print("Гипотеза 1: Различие среднего rental_rate между короткими и длинными фильмами")
-print(f"t-статистика: {t_stat}, p-значение: {p_value}")
+
+# Сравнение средних значений rental_rate
+mean_short = group_short.mean()
+mean_long = group_long.mean()
+
+print(f"Средний rental_rate для коротких фильмов: {mean_short:.2f}")
+print(f"Средний rental_rate для длинных фильмов: {mean_long:.2f}")
+
+# Гипотеза проверяется: если средние значения значимо различаются, гипотеза верна
+if abs(mean_short - mean_long) > 0.5:  # Условие по усмотрению, можно варьировать порог
+    print("Гипотеза верна: Средний rental_rate отличается между короткими и длинными фильмами.")
+else:
+    print("Гипотеза неверна: Средний rental_rate не отличается.")
