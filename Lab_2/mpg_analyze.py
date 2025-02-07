@@ -68,6 +68,8 @@ categorical_encoded_df = pd.DataFrame(categorical_encoded, columns=encoder.get_f
 # Объединяем закодированные данные с остальными
 mpg_encoded = pd.concat([mpg_df.drop(columns=selected_categorical_cols), categorical_encoded_df], axis=1)
 mpg_encoded = mpg_encoded.select_dtypes(include=['number'])
+print("Закодированные данные")
+print(mpg_encoded)
 
 # 6. Корреляционная матрица
 correlation_matrix = mpg_encoded.corr()

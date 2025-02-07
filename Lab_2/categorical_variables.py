@@ -17,4 +17,7 @@ for col in cat_cols:
         "Количество уникальных значений": df_film[col].nunique(),
         "Мода": df_film[col].mode()[0] if not df_film[col].mode().empty else None
     }
+pd.set_option('display.max_columns', None)
+pd.set_option('display.expand_frame_repr', False)
+pd.set_option('display.float_format', '{:.3f}'.format)
 print(pd.DataFrame(cat_stats))

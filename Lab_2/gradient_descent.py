@@ -26,4 +26,4 @@ def stochastic_gradient_descent(X, y, learning_rate=0.0001, n_epochs=50):
     return theta0, theta1
 
 theta0_stoch, theta1_stoch = stochastic_gradient_descent(X, y)
-print("Stochastic Gradient Descent: Перехват =", theta0_stoch, ", Коэффициент =", theta1_stoch)
+print("Стохастический градиентный спуск: Перехват =", theta0_stoch, ", Коэффициент =", theta1_stoch)

@@ -24,4 +24,7 @@ for col in num_cols:
         "1 квартиль": df_film[col].quantile(0.25),
         "3 квартиль": df_film[col].quantile(0.75)
     }
+pd.set_option('display.max_columns', None)
+pd.set_option('display.expand_frame_repr', False)
+pd.set_option('display.float_format', '{:.3f}'.format)
 print(pd.DataFrame(num_stats))

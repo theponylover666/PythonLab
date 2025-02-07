@@ -11,4 +11,7 @@ with engine.connect() as conn:
 # Кодирование категориальных переменных
 film_encoded = pd.get_dummies(df_film, columns=['rating'], drop_first=True)
 
+pd.set_option('display.max_columns', None)
+pd.set_option('display.expand_frame_repr', False)
+pd.set_option('display.float_format', '{:.3f}'.format)
 print(film_encoded.head())

@@ -129,8 +129,6 @@ L
 Lab_2/numerical_variables.py,4\5\45d0a2ff998b55d6d4e44cf473c65363601bb989
 D
 Lab_2/mpg_analyze.py,4\9\49962078790d8a4ff7ded3e2bfbde8399bcd21bb
-J
-Lab_2/numeric_analysis.csv,c\e\ce49ccbde1f6b4c77cdf3b1a3654c1a0775e3a7b
 Å
 Q.idea/sonarlint/securityhotspotstore/3/6/363085c637d6ac90236a6f238bab94e19e8c7461,0\e\0e05b56bf84f2072129e60c345c84a1e1e6dc051
 Å
