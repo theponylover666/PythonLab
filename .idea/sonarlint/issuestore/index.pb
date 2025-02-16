@@ -267,3 +267,25 @@ w
 G.idea/sonarlint/issuestore/6/9/6998cab4d9943c6ac02ac13c35a814eaa2deec7f,a\5\a56dd048af6f178e1277f34ecfdef04f860b1656
 Å
 Q.idea/sonarlint/securityhotspotstore/6/9/6998cab4d9943c6ac02ac13c35a814eaa2deec7f,1\0\1038b2c4e582092c4368cb3b62d82b97389871f3
+G
+Practice/hello/hello.py,4\d\4d6c53074198dde73931ce722a685fd44d2790cb
+B
+Lab_3/Chapter_1.py,d\b\dbdff056c1ccbe592e1f6fb5b884002c55677c92
+B
+Lab_3/Chapter_2.py,0\7\076094bfa331f26f2743ecc3a9ddd952a89d81fa
+P
+ Practice/hello/dataframe_demo.py,e\6\e66311794755cd344bed42291b37c23e07ac2953
+G
+Practice/hello/utils.py,9\3\93eab460fc2c0dc12046e85039efbfa4ee54b192
+J
+Practice/hello/__init__.py,9\f\9ff1121840e76f1d03ef1401a1dbd9a98367c0ba
+?
+Lab_3/train.csv,1\a\1ac463c64cf3ea79b8fca17ea707c917c1406391
+O
+Practice/hello/streamlit_app.py,9\9\99309e22f726828ed4795e46d34ba198a19dedec
+P
+ Practice/hello/animation_demo.py,f\3\f30c1b65281750ade20dc80a12637c8482ef6c6e
+N
+Practice/hello/mapping_demo.py,d\a\da558ded7e0e69dd8d003ada4cc1de348510b4af
+O
+Practice/hello/plotting_demo.py,c\0\c0891a0237bd9e91090b90599cdb702e8cf0128a
