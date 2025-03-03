@@ -289,3 +289,15 @@ N
 Practice/hello/mapping_demo.py,d\a\da558ded7e0e69dd8d003ada4cc1de348510b4af
 O
 Practice/hello/plotting_demo.py,c\0\c0891a0237bd9e91090b90599cdb702e8cf0128a
+@
+Lab_3/WineQT.csv,8\d\8da2a85ad4cc06812eee432be5406b84e529a2f7
+?
+Practice/app.py,7\9\795af08c00902aa4d76b474e95f92a87f2659738
+B
+Lab_4/Chapter_1.py,a\f\af320e6fa00ebdd4bb0c02153faaa3ac8b0d0d33
+=
+Lab_4/test.py,7\5\75ae8f63fe53e0ad710f76a6ed0acd9d803586a5
+B
+Lab_4/Chapter_2.py,a\e\ae12e01e40274b868c985fc9a25d83f172a9e00d
+B
+Practice/train.csv,e\5\e5d3e9b38ffecb8c67565d6b7792777a58e8a613
