@@ -3,10 +3,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
 from collections import Counter
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_auc_score, roc_curve
 
-file_path = "../Practice/train.csv"
+file_path = "train.csv"
 df = pd.read_csv(file_path)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
@@ -118,6 +120,13 @@ knn.fit(X_train, y_train)
 log_reg = LogisticRegressionCustom(lr=0.1, epochs=5000)
 log_reg.fit(X_train, y_train)
 
+# Библиотечные модели
+knn_lib = KNeighborsClassifier(n_neighbors=5)
+knn_lib.fit(X_train, y_train)
+
+log_reg_lib = LogisticRegression()
+log_reg_lib.fit(X_train, y_train)
+
 def evaluate_model(model, X_test, y_test, name):
     predictions = model.predict(X_test)
 
@@ -138,52 +147,48 @@ def evaluate_model(model, X_test, y_test, name):
     print(conf_matrix)
 
 evaluate_model(knn, X_test, y_test, "KNN")
+evaluate_model(knn_lib, X_test, y_test, "KNN (Library)")
 evaluate_model(log_reg, X_test, y_test, "Logistic Regression")
+evaluate_model(log_reg_lib, X_test, y_test, "Logistic Regression (Library)")
 
 def plot_decision_boundary(model, X, y, title):
     h = .1
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-
-    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z = Z.reshape(xx.shape)
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
 
     plt.contourf(xx, yy, Z, alpha=0.3)
-    plt.scatter(X[:, 0], X[:, 1], c=y, edgecolor='k', cmap=plt.cm.coolwarm)
+    plt.scatter(X[y == 0, 0], X[y == 0, 1], c='blue', edgecolors='cyan', label='Class 0')
+    plt.scatter(X[y == 1, 0], X[y == 1, 1], c='red', edgecolors='pink', label='Class 1')
     plt.xlabel(feature_cols[0])
     plt.ylabel(feature_cols[1])
     plt.title(title)
+    plt.legend()
     plt.show()
 
-y_train_probs_log_reg = log_reg.sigmoid(np.dot(X_train, log_reg.theta))
-y_test_probs_log_reg = log_reg.sigmoid(np.dot(X_test, log_reg.theta))
+def plot_roc_curve(models, X_test, y_test):
+    plt.figure(figsize=(8, 6))
+    for model, name in models:
+        if hasattr(model, "predict_proba"):
+            y_probs = model.predict_proba(X_test)[:, 1]
+        else:
+            y_probs = model.predict(X_test)
+        fpr, tpr, _ = roc_curve(y_test, y_probs)
+        plt.plot(fpr, tpr, label=f"{name} (AUC = {roc_auc_score(y_test, y_probs):.4f}")
+    plt.plot([0, 1], [0, 1], linestyle="--", color="gray")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("Receiver Operating Characteristic (ROC) Curve")
+    plt.legend()
+    plt.show()
 
-fpr_train_log, tpr_train_log, _ = roc_curve(y_train, y_train_probs_log_reg)
-fpr_test_log, tpr_test_log, _ = roc_curve(y_test, y_test_probs_log_reg)
 
-y_train_probs_knn = knn.predict(X_train)
-y_test_probs_knn = knn.predict(X_test)
+plot_roc_curve([(knn, "KNN"), (log_reg, "Logistic Regression")], X_test, y_test)
 
-fpr_train_knn, tpr_train_knn, _ = roc_curve(y_train, y_train_probs_knn)
-fpr_test_knn, tpr_test_knn, _ = roc_curve(y_test, y_test_probs_knn)
-
-plt.figure(figsize=(8, 6))
-
-plt.plot(fpr_train_log, tpr_train_log, color="green", linestyle="--", label="ROC Train (LogReg)")
-plt.plot(fpr_test_log, tpr_test_log, color="blue", linestyle="--", label="ROC Test (LogReg)")
-
-plt.plot(fpr_train_knn, tpr_train_knn, color="darkgreen", label="ROC Train (KNN)")
-plt.plot(fpr_test_knn, tpr_test_knn, color="darkblue", label="ROC Test (KNN)")
-
-plt.plot([0, 1], [0, 1], linestyle="--", color="gray")
-
-plt.xlabel("False Positive Rate")
-plt.ylabel("True Positive Rate")
-plt.title("Receiver Operating Characteristic (ROC)")
-plt.legend()
-plt.show()
+plot_roc_curve([(knn_lib, "KNN (Library)"), (log_reg_lib, "Logistic Regression (Library)")], X_test, y_test)
 
 plot_decision_boundary(knn, X_train, y_train, "KNN Decision Boundary")
-
+plot_decision_boundary(knn_lib, X_train, y_train, "KNN Decision Boundary (library)")
 plot_decision_boundary(log_reg, X_train, y_train, "Logistic Regression Decision Boundary")
+plot_decision_boundary(log_reg_lib, X_train, y_train, "Logistic Regression Decision Boundary (library)")

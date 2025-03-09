@@ -8,6 +8,7 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
 
+# Загрузка данных
 df = pd.read_csv("CarPrice_Assignment.csv")
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
@@ -15,24 +16,19 @@ pd.set_option('display.float_format', '{:.3f}'.format)
 print("Данные загружены. Первые 5 строк:")
 print(df.head())
 
+# Первичный анализ
 print("\nРазмеры датафрейма:")
 print(f"Строк: {df.shape[0]}, Столбцов: {df.shape[1]}")
 
 print("\nИспользование памяти:")
-memory_usage = df.memory_usage(deep=True).sum() / (1024)  # в килобайтах
+memory_usage = df.memory_usage(deep=True).sum() / (1024)
 print(f"Используется памяти: {memory_usage:.2f} килобайт")
 
 print("\nСтатистика числовых признаков:")
 print(df.describe())
 
-print("\nМоды категориальных переменных:")
-for col in df.columns:
-    mode_val = df[col].mode()[0]
-    mode_count = (df[col] == mode_val).sum()
-    print(f"{col}: мода = {mode_val}, встречается {mode_count} раз")
-
+# Обработка данных
 df.drop(columns=['car_ID'], inplace=True)
-
 df['CarBrand'] = df['CarName'].apply(lambda x: x.split()[0])
 df.drop(columns=['CarName'], inplace=True)
 
@@ -48,11 +44,12 @@ for col in numerical_cols:
 print("\nРазмеры датафрейма после обработки выбросов:")
 print(f"Строк: {df.shape[0]}, Столбцов: {df.shape[1]}")
 
+# Кодирование категориальных переменных
 df = pd.get_dummies(df, drop_first=True)
 
-target = "price"
-X = df.drop(columns=[target])
-y = df[target]
+# Разделение данных
+X = df.drop(columns=["price"])
+y = df["price"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 print("\nРазмеры выборок после разбиения:")
 print(f"Обучающая: {X_train.shape}, Тестовая: {X_test.shape}")
@@ -60,7 +57,7 @@ print(f"Обучающая: {X_train.shape}, Тестовая: {X_test.shape}")
 def evaluate_model(y_true, y_pred):
     mae = mean_absolute_error(y_true, y_pred)
     mse = mean_squared_error(y_true, y_pred)
-    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+    rmse = np.sqrt(mse)
     mape = np.mean(np.abs((y_true - y_pred) / y_true)) * 100 if np.any(y_true != 0) else np.nan
     r2 = r2_score(y_true, y_pred)
     return {"MAE": mae, "MSE": mse, "RMSE": rmse, "MAPE": mape, "R²": r2}
@@ -68,30 +65,25 @@ def evaluate_model(y_true, y_pred):
 models = {
     "Linear Regression": LinearRegression(),
     "LASSO": Lasso(alpha=0.1),
-    "ElasticNet": ElasticNet(alpha=0.1, l1_ratio=0.5)
+    "ElasticNet": ElasticNet(alpha=0.1, l1_ratio=0.5),
+    "KNN Regression": KNeighborsRegressor(n_neighbors=5)
 }
 
 results = {}
 for name, model in models.items():
     print(f"\nОбучение модели: {name}")
-
-    # Обучение модели
     model.fit(X_train, y_train)
-
-    # Предсказание
     y_pred = model.predict(X_test)
-
-    # Сохранение метрик
     results[name] = evaluate_model(y_test, y_pred)
 
-    # Визуализация предсказаний
+    # Визуализация предсказаний (ступенчатый график)
     plt.figure(figsize=(8, 5))
-    plt.scatter(y_test, y_pred, color='black', label="data", alpha=0.7)
-    plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', label="идеальное предсказание")
-
-    plt.xlabel("Фактические значения", fontsize=12)
-    plt.ylabel("Предсказанные значения", fontsize=12)
-    plt.title(f"График предсказаний для {name}", fontsize=14)
+    sorted_indices = np.argsort(y_test)
+    plt.step(y_test.iloc[sorted_indices], y_pred[sorted_indices], where='mid', label="Предсказания", color='blue')
+    plt.plot(y_test.iloc[sorted_indices], y_test.iloc[sorted_indices], 'r--', label="Идеальное предсказание")
+    plt.xlabel("Фактические значения")
+    plt.ylabel("Предсказанные значения")
+    plt.title(f"Ступенчатый график предсказаний для {name}")
     plt.legend()
     plt.grid(True, linestyle="--", alpha=0.6)
     plt.show()
@@ -100,9 +92,8 @@ print("\nРезультаты оценки моделей:")
 for model_name, metrics in results.items():
     print(f"{model_name}: {metrics}")
 
-# Выбор лучшей модели по метрикам
-best_model_name = min(results,
-                      key=lambda x: (results[x]["MAE"], results[x]["MSE"], results[x]["RMSE"], -results[x]["R²"]))
+# Выбор лучшей модели
+best_model_name = min(results, key=lambda x: (results[x]["MAE"], results[x]["MSE"], results[x]["RMSE"], -results[x]["R²"]))
 best_model = models[best_model_name]
 print(f"\nЛучшая модель по совокупности метрик: {best_model_name}")
 
