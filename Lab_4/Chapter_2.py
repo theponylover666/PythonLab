@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, Lasso, ElasticNet
 from sklearn.neighbors import KNeighborsRegressor
@@ -53,6 +53,11 @@ y = df["price"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 print("\nРазмеры выборок после разбиения:")
 print(f"Обучающая: {X_train.shape}, Тестовая: {X_test.shape}")
+
+# Нормализация данных
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 def evaluate_model(y_true, y_pred):
     mae = mean_absolute_error(y_true, y_pred)
